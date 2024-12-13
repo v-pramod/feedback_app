@@ -26,13 +26,21 @@ Submit user feedback for AI analysis.
 Example request:
 ```json
 {
-  "userName": "Name",
-  "feedback": [
-    {
-      "question": "question 1",
-      "rating": 3
-    }
-  ]
+    "userName": "John Doe",
+    "feedback": [
+        {
+            "question": "How would you rate our product?",
+            "rating": 4
+        },
+        {
+            "question": "How was your experience with our customer service?",
+            "rating": 5
+        },
+        {
+            "question": "Would you recommend our product to others?",
+            "rating": 3
+        }
+    ]
 }
 ```
 
