@@ -95,9 +95,25 @@ async def submit_feedback(request: FeedbackRequest) -> FeedbackResponse:
 @app.get("/api/v1/getfeedbackresponse")
 async def get_feedback_response():
     """
-    Endpoint to retrieve feedback responses
-    Note: In a real application, this would typically interact with a database
+    Endpoint to retrieve feedback responses from the CSV file
+    Returns the data in JSON format
     """
-    return {
-        "message": "This endpoint would return stored feedback responses from a database"
-    }
+    try:
+        ensure_csv_exists()
+        feedback_data = []
+        
+        with open(CSV_FILE, mode='r', newline='', encoding='utf-8') as file:
+            csv_reader = csv.DictReader(file)
+            for row in csv_reader:
+                feedback_data.append(row)
+        
+        return {
+            "status": "success",
+            "count": len(feedback_data),
+            "data": feedback_data
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error retrieving feedback data: {str(e)}"
+        )
